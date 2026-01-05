@@ -17771,7 +17771,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 561736191922529603, guid: 06c8265eb147ae74082ccc1398af8665, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.851
+      value: 9.79
       objectReference: {fileID: 0}
     - target: {fileID: 561736191922529603, guid: 06c8265eb147ae74082ccc1398af8665, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17779,7 +17779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 561736191922529603, guid: 06c8265eb147ae74082ccc1398af8665, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.366
+      value: -10.37
       objectReference: {fileID: 0}
     - target: {fileID: 561736191922529603, guid: 06c8265eb147ae74082ccc1398af8665, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17811,13 +17811,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114496924175236254, guid: 06c8265eb147ae74082ccc1398af8665, type: 3}
       propertyPath: m_Name
-      value: Player(Gobbo)
+      value: PlayerModel(Gobbo)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9114496924175236254, guid: 06c8265eb147ae74082ccc1398af8665, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3691658987251449106}
   m_SourcePrefab: {fileID: 100100000, guid: 06c8265eb147ae74082ccc1398af8665, type: 3}
+--- !u!1 &3691658987251449105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9114496924175236254, guid: 06c8265eb147ae74082ccc1398af8665, type: 3}
+  m_PrefabInstance: {fileID: 3691658987251449104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &3691658987251449106
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3691658987251449105}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &5611286562545883287
 PrefabInstance:
   m_ObjectHideFlags: 0
