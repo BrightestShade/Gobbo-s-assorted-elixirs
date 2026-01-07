@@ -229,7 +229,7 @@ MonoBehaviour:
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   grounded: 0
   maxJumps: 2
   jumpsRemaining: 0
