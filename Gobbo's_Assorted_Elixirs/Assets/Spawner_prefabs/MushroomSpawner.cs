@@ -21,7 +21,9 @@ public class MushroomSpawner : MonoBehaviour
         spawnerTimer = 0f;
         Debug.Log("spawnerTimer reset");
 
-        Vector3 spawnPosition = spawnPosition(transform, (-14.31771, 5.38759, -116.402));
+        Vector3 spawnPosition = transform.position;
+        Instantiate(Red_Mushroom_ClusterPrefab, spawnPosition, Quaternion.identity);
+        Debug.Log("spawned mushroom prefab");
     }
 
 }
