@@ -15,6 +15,7 @@ public class Ingredient : MonoBehaviour
 
     Vector3 objectPos;
 
+   
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -87,4 +88,8 @@ public class Ingredient : MonoBehaviour
             rb.useGravity = true;
         }
     }
+
+    
+    
+    
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -683570613222163353}
   - component: {fileID: 1532023079644724493}
   - component: {fileID: 2050520363120897847}
+  - component: {fileID: 7566036997321722118}
   m_Layer: 0
   m_Name: Red Mushroom Cluster
   m_TagString: Collectable
@@ -100,6 +101,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwForce: 600
   maxDistance: 3
+--- !u!114 &7566036997321722118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3352051040497021334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8940bf3158934e44497294cf1f59efcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientData: {fileID: 11400000, guid: ee0e45d850795c2469b4a4f73b3ee9e7, type: 2}
 --- !u!1001 &943720261979126198
 PrefabInstance:
   m_ObjectHideFlags: 0
