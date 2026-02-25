@@ -26795,6 +26795,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 403927fca4b831e459730a990c33b7e8, type: 3}
+--- !u!1 &1803735701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1803735703}
+  - component: {fileID: 1803735702}
+  m_Layer: 0
+  m_Name: Mushroom Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1803735702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803735701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1654ab6155d7d5a4993f2bb8f621bd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Red_Mushroom_ClusterPrefab: {fileID: 0}
+  spawnerTimer: 0
+--- !u!4 &1803735703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803735701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.362, y: 5.045, z: -116.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1806750389 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -516098083770646512, guid: 42c0665e7a73bf8408cb463c087c5f1f, type: 3}
@@ -31827,6 +31873,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 436798, guid: 50aa90a81020d7f4d9882a4bede1b4f3, type: 3}
   m_PrefabInstance: {fileID: 2143542538}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6796472015462975689
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.31771
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.38759
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -116.40201
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495111560906766, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3352051040497021334, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
+      propertyPath: m_Name
+      value: Red Mushroom Cluster
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -31842,3 +31945,5 @@ SceneRoots:
   - {fileID: 157734021}
   - {fileID: 105840711}
   - {fileID: 1580822211}
+  - {fileID: 1803735703}
+  - {fileID: 6796472015462975689}
