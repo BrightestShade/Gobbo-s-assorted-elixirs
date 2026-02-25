@@ -3,26 +3,34 @@ using System.Collections.Generic;
 
 public class CauldronIngredientChecker : MonoBehaviour
 {
-    [Header("Current Recipe")]
+    [Header("Active Recipe")]
     public PotionRecipe currentRecipe;
 
     private List<IngredientData> addedIngredients = new List<IngredientData>();
+    private bool potionComplete = false;
 
     private void OnTriggerEnter(Collider other)
     {
+        if (potionComplete) return;
+
         IngredientItem item = other.GetComponent<IngredientItem>();
         if (item == null) return;
 
         CheckIngredient(item.ingredientData);
-        Destroy(other.gameObject);
+
+       
+       // Destroy(other.gameObject);
     }
 
     void CheckIngredient(IngredientData ingredient)
     {
         if (currentRecipe == null) return;
 
-        int requiredCount = currentRecipe.requiredIngredients.FindAll(i => i == ingredient).Count;
-        int currentCount = addedIngredients.FindAll(i => i == ingredient).Count;
+        int requiredCount = currentRecipe.requiredIngredients
+            .FindAll(i => i == ingredient).Count;
+
+        int currentCount = addedIngredients
+            .FindAll(i => i == ingredient).Count;
 
         if (currentCount < requiredCount)
         {
@@ -42,22 +50,29 @@ public class CauldronIngredientChecker : MonoBehaviour
 
     void GoodIngredientFeedback()
     {
-        Debug.Log("Correct Ingredient!");
-
+        Debug.Log("Correct ingredient");
         // Flash blue
         // Play bubbly sound
     }
 
     void FailPotion()
     {
-        Debug.Log("Wrong Ingredient! Potion ruined.");
+        Debug.Log("Wrong ingredient and potion ruined.");
         addedIngredients.Clear();
-        // Play belch sound
     }
 
     void CompletePotion()
     {
-        Debug.Log("Potion Completed!");
+        Debug.Log("Potion completed");
         addedIngredients.Clear();
+        potionComplete = true;
     }
+
+    // For future NPC system
+   /* public void SetActiveRecipe(PotionRecipe newRecipe)
+    {
+        currentRecipe = newRecipe;
+        addedIngredients.Clear();
+        potionComplete = false;
+    } */
 }
