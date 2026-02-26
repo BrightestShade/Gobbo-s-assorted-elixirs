@@ -20,6 +20,7 @@ public class CauldronIngredientChecker : MonoBehaviour
 
        
        // Destroy(other.gameObject);
+       // Call the "DecreaseCount()" method from Spawner script
     }
 
     void CheckIngredient(IngredientData ingredient)
