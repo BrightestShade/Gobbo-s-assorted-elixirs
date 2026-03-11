@@ -28,31 +28,36 @@ public class CauldronIngredientChecker : MonoBehaviour
         Debug.Log("Ingredient used");
     }
 
-    void CheckIngredient(IngredientData ingredient)
+   void CheckIngredient(IngredientData ingredient)
+{
+    if (currentRecipe == null) return;
+
+    int step = addedIngredients.Count;
+
+    // Check if we are beyond recipe length
+    if (step >= currentRecipe.requiredIngredients.Count)
     {
-        if (currentRecipe == null) return;
+        FailPotion();
+        return;
+    }
 
-        int requiredCount = currentRecipe.requiredIngredients
-            .FindAll(i => i == ingredient).Count;
+    IngredientData requiredIngredient = currentRecipe.requiredIngredients[step];
 
-        int currentCount = addedIngredients
-            .FindAll(i => i == ingredient).Count;
+    if (ingredient == requiredIngredient)
+    {
+        addedIngredients.Add(ingredient);
+        GoodIngredientFeedback();
 
-        if (currentCount < requiredCount)
+        if (addedIngredients.Count == currentRecipe.requiredIngredients.Count)
         {
-            addedIngredients.Add(ingredient);
-            GoodIngredientFeedback();
-
-            if (addedIngredients.Count == currentRecipe.requiredIngredients.Count)
-            {
-                CompletePotion();
-            }
-        }
-        else
-        {
-            FailPotion();
+            CompletePotion();
         }
     }
+    else
+    {
+        FailPotion();
+    }
+}
 
     void GoodIngredientFeedback()
     {
