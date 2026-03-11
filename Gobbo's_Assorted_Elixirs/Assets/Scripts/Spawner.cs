@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     private void Update() 
     {
         spawnerTimer += Time.deltaTime;
-        if (spawnerTimer > 20)
+        if (spawnerTimer >= 5)
         {
             SpawnIngredient();
         }
@@ -22,15 +22,20 @@ public class Spawner : MonoBehaviour
     {
         spawnerTimer = 0f;
         Debug.Log("spawnerTimer reset");
-       
+
         if (currentSpawnCount >= maxInstances)
         {
             return;
         }
 
         Vector3 spawnPosition = transform.position;
-        Instantiate(IngredientPrefab, spawnPosition, Quaternion.identity);
+        GameObject ingredient = Instantiate(IngredientPrefab, spawnPosition, Quaternion.identity);
+
+        IngredientItem item = ingredient.GetComponent<IngredientItem>();
+        item.originSpawner = this; // Tell ingredient which spawner spawned it
+
         currentSpawnCount++;
+
         Debug.Log("spawned Ingredient prefab");
     }
 
@@ -38,4 +43,5 @@ public class Spawner : MonoBehaviour
     {
         currentSpawnCount--;
     }
+    
 }

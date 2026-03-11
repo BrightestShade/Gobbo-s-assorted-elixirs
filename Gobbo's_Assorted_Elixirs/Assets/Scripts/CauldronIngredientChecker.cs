@@ -8,7 +8,7 @@ public class CauldronIngredientChecker : MonoBehaviour
 
     private List<IngredientData> addedIngredients = new List<IngredientData>();
     private bool potionComplete = false;
-
+    [SerializeField] private Spawner spawner;
     private void OnTriggerEnter(Collider other)
     {
         if (potionComplete) return;
@@ -18,9 +18,14 @@ public class CauldronIngredientChecker : MonoBehaviour
 
         CheckIngredient(item.ingredientData);
 
-       
-       // Destroy(other.gameObject);
-       // Call the "DecreaseCount()" method from Spawner script
+        if (item.originSpawner != null)
+        {
+            item.originSpawner.DecreaseCount();
+        }
+
+        Destroy(other.gameObject);
+
+        Debug.Log("Ingredient used");
     }
 
     void CheckIngredient(IngredientData ingredient)

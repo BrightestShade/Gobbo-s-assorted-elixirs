@@ -3726,6 +3726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IngredientPrefab: {fileID: 7904007927994114283, guid: ff4a168e4a7bf1f48adf04087dba29fb, type: 3}
   spawnerTimer: 0
+  maxInstances: 2
 --- !u!4 &251325227
 Transform:
   m_ObjectHideFlags: 0
@@ -5066,6 +5067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IngredientPrefab: {fileID: 3352051040497021334, guid: f809d9c682f40124284e0a79376ed7c0, type: 3}
   spawnerTimer: 0
+  maxInstances: 2
 --- !u!4 &347220300
 Transform:
   m_ObjectHideFlags: 0
@@ -15949,6 +15951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRecipe: {fileID: 11400000, guid: 9b60296bd27f1b345bd2535f2a4dd16e, type: 2}
+  spawner: {fileID: 347220299}
 --- !u!1 &1051604450
 GameObject:
   m_ObjectHideFlags: 0
