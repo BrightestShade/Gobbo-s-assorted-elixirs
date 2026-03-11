@@ -16,3 +16,4 @@ MonoBehaviour:
   requiredIngredients:
   - {fileID: 11400000, guid: f425223f3ed8d9e40a8b25c9646245d2, type: 2}
   - {fileID: 11400000, guid: ee0e45d850795c2469b4a4f73b3ee9e7, type: 2}
+  - {fileID: 11400000, guid: ee0e45d850795c2469b4a4f73b3ee9e7, type: 2}

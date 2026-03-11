@@ -173,7 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8940bf3158934e44497294cf1f59efcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientData: {fileID: 0}
+  ingredientData: {fileID: 11400000, guid: f425223f3ed8d9e40a8b25c9646245d2, type: 2}
+  originSpawner: {fileID: 0}
 --- !u!114 &2331508252867185062
 MonoBehaviour:
   m_ObjectHideFlags: 0

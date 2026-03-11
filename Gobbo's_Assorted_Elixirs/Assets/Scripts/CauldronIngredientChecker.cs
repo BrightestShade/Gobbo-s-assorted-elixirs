@@ -28,36 +28,39 @@ public class CauldronIngredientChecker : MonoBehaviour
         Debug.Log("Ingredient used");
     }
 
-   void CheckIngredient(IngredientData ingredient)
-{
-    if (currentRecipe == null) return;
-
-    int step = addedIngredients.Count;
-
-    // Check if we are beyond recipe length
-    if (step >= currentRecipe.requiredIngredients.Count)
+    void CheckIngredient(IngredientData ingredient)
     {
-        FailPotion();
-        return;
-    }
+        if (currentRecipe == null) return;
 
-    IngredientData requiredIngredient = currentRecipe.requiredIngredients[step];
+        int step = addedIngredients.Count;
 
-    if (ingredient == requiredIngredient)
-    {
-        addedIngredients.Add(ingredient);
-        GoodIngredientFeedback();
-
-        if (addedIngredients.Count == currentRecipe.requiredIngredients.Count)
+        // Check if we are beyond recipe length
+        if (step >= currentRecipe.requiredIngredients.Count)
         {
-            CompletePotion();
+            FailPotion();
+            return;
+        }
+
+        IngredientData requiredIngredient = currentRecipe.requiredIngredients[step];
+
+        // Compare by name instead of reference
+        if (ingredient.ingredientName == requiredIngredient.ingredientName)
+        {
+            addedIngredients.Add(ingredient);
+            GoodIngredientFeedback();
+
+            if (addedIngredients.Count == currentRecipe.requiredIngredients.Count)
+            {
+                CompletePotion();
+                
+            }
+        }
+        else
+        {
+            FailPotion();
+            Debug.Log("Potion ruined");
         }
     }
-    else
-    {
-        FailPotion();
-    }
-}
 
     void GoodIngredientFeedback()
     {
@@ -78,12 +81,17 @@ public class CauldronIngredientChecker : MonoBehaviour
         addedIngredients.Clear();
         potionComplete = true;
     }
-
-    // For future NPC system
-   /* public void SetActiveRecipe(PotionRecipe newRecipe)
+    public void ResetPotion()
     {
-        currentRecipe = newRecipe;
         addedIngredients.Clear();
         potionComplete = false;
-    } */
+    }
+
+    // For future NPC system
+    /* public void SetActiveRecipe(PotionRecipe newRecipe)
+     {
+         currentRecipe = newRecipe;
+         addedIngredients.Clear();
+         potionComplete = false;
+     } */
 }

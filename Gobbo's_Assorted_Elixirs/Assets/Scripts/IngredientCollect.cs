@@ -18,7 +18,7 @@ public class IngredientCollect : MonoBehaviour
         if (other.CompareTag("Collectable"))
         {
             objectInRange = other.gameObject;
-            Debug.Log("Ingredient in interaction range");
+            // Debug.Log("Ingredient in interaction range");
           
         }
     }
@@ -28,7 +28,7 @@ public class IngredientCollect : MonoBehaviour
         if (other.CompareTag("Collectable"))
         {
             objectInRange = null;
-            Debug.Log("Ingredient out of interaction range");
+            // Debug.Log("Ingredient out of interaction range");
         }
     }
 

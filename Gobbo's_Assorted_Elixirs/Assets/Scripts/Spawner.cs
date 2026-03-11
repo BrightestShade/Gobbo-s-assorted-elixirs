@@ -2,46 +2,54 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-     public GameObject IngredientPrefab; 
-     public float spawnerTimer;
-     public int maxInstances;
-
+    public GameObject IngredientPrefab;
+    public float spawnerTimer;
+    public int maxInstances;
 
     private int currentSpawnCount = 0;
-    private void Update() 
+
+    private void Update()
     {
         spawnerTimer += Time.deltaTime;
-        if (spawnerTimer >= 5)
-        {
-            SpawnIngredient();
-        }
 
+        if (spawnerTimer >= 5f)
+        {
+            spawnerTimer = 0f;
+
+            if (currentSpawnCount < maxInstances)
+            {
+                SpawnIngredient();
+            }
+        }
     }
 
     public void SpawnIngredient()
     {
-        spawnerTimer = 0f;
-        Debug.Log("spawnerTimer reset");
-
-        if (currentSpawnCount >= maxInstances)
-        {
-            return;
-        }
-
         Vector3 spawnPosition = transform.position;
         GameObject ingredient = Instantiate(IngredientPrefab, spawnPosition, Quaternion.identity);
 
         IngredientItem item = ingredient.GetComponent<IngredientItem>();
-        item.originSpawner = this; // Tell ingredient which spawner spawned it
+
+        if (item != null)
+        {
+            item.originSpawner = this;
+        }
 
         currentSpawnCount++;
 
-        Debug.Log("spawned Ingredient prefab");
+      //  Debug.Log("Spawned ingredient. Count: " + currentSpawnCount);
     }
 
     public void DecreaseCount()
     {
         currentSpawnCount--;
+
+        // Prevent negative values
+        if (currentSpawnCount < 0)
+        {
+            currentSpawnCount = 0;
+        }
+
+      //  Debug.Log("Ingredient removed. Count: " + currentSpawnCount);
     }
-    
 }

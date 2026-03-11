@@ -4,8 +4,13 @@ public class PotionSelector : MonoBehaviour
 {
     public CauldronIngredientChecker cauldron;
 
+    
     public void SetPotion(PotionRecipe recipe)
     {
-        cauldron.currentRecipe = recipe;
+        if (recipe != null)
+        {
+            cauldron.currentRecipe = recipe;
+            cauldron.ResetPotion(); // reset progress at the start
+        }
     }
 }

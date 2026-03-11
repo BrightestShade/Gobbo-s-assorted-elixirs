@@ -28,9 +28,12 @@ public class Ingredient : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isHolding)
+        // distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
+
+        if (isHolding)
         {
             Hold();
+            
         }
     }
 
