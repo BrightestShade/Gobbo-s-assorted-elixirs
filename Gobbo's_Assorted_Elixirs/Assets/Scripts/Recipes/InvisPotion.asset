@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: InvisPotion
   m_EditorClassIdentifier: 
   potionName: 
-  requiredIngredients: []
+  requiredIngredients:
+  - {fileID: 11400000, guid: 0a1450c765573344a9e750a803378caf, type: 2}
+  - {fileID: 11400000, guid: 0a1450c765573344a9e750a803378caf, type: 2}
+  - {fileID: 11400000, guid: 996ce0e0300dd474f9fe6df084a750f4, type: 2}

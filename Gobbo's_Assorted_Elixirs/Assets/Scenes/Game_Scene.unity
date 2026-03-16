@@ -3089,6 +3089,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 436642, guid: 08507db073ef8364d9175005ffef81f4, type: 3}
   m_PrefabInstance: {fileID: 198212858}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &199397122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 199397124}
+  - component: {fileID: 199397123}
+  m_Layer: 0
+  m_Name: BrownMushroomSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &199397123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199397122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1654ab6155d7d5a4993f2bb8f621bd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IngredientPrefab: {fileID: 2032994085616152551, guid: 1927d316c659251478d54cac6dc3b622, type: 3}
+  spawnerTimer: 0
+  maxInstances: 2
+--- !u!4 &199397124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199397122}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.579, y: 5.437, z: -71.675}
+  m_LocalScale: {x: 0.09280357, y: 0.09280357, z: 0.09280357}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &201536200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3736,7 +3783,7 @@ Transform:
   m_GameObject: {fileID: 251325225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.09, y: 5.437, z: -73.696}
+  m_LocalPosition: {x: -8.547, y: 5.437, z: -72.345}
   m_LocalScale: {x: 0.09280357, y: 0.09280357, z: 0.09280357}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5047,7 +5094,7 @@ GameObject:
   - component: {fileID: 347220300}
   - component: {fileID: 347220299}
   m_Layer: 0
-  m_Name: MushroomSpawner (1)
+  m_Name: RedMushroomSpawner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5077,7 +5124,7 @@ Transform:
   m_GameObject: {fileID: 347220298}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.034, y: 5.384, z: -73.868}
+  m_LocalPosition: {x: -8.566999, y: 5.384, z: -72.952}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13259,6 +13306,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dcde38b035658e43acba05e4c8f0d9b, type: 3}
+--- !u!1 &893796093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893796094}
+  m_Layer: 0
+  m_Name: Adventurer_Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &893796094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893796093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.935, y: 5.82483, z: -64.732}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &896815115
 GameObject:
   m_ObjectHideFlags: 0
@@ -15950,7 +16028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76b913881282604199e1c89750b897b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRecipe: {fileID: 11400000, guid: 9b60296bd27f1b345bd2535f2a4dd16e, type: 2}
+  currentRecipe: {fileID: 11400000, guid: de5a7eeef2a32ad429a8b61aece8f245, type: 2}
   spawner: {fileID: 347220299}
 --- !u!1 &1051604450
 GameObject:
@@ -18693,6 +18771,53 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1227388081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1227388083}
+  - component: {fileID: 1227388082}
+  m_Layer: 0
+  m_Name: PoisonMushroomSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1227388082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227388081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1654ab6155d7d5a4993f2bb8f621bd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IngredientPrefab: {fileID: 8896160540284062814, guid: 9891480b7ab4d304596f7261a19044bd, type: 3}
+  spawnerTimer: 0
+  maxInstances: 2
+--- !u!4 &1227388083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227388081}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.579, y: 5.437, z: -73.974}
+  m_LocalScale: {x: 0.09280357, y: 0.09280357, z: 0.09280357}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1230160896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21420,6 +21545,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 454262, guid: 438e2d5f3b9cf3344bca7c6ee3a7413b, type: 3}
   m_PrefabInstance: {fileID: 1380151433}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1381092147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1381092149}
+  - component: {fileID: 1381092148}
+  m_Layer: 0
+  m_Name: FlowerSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1381092148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381092147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1654ab6155d7d5a4993f2bb8f621bd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IngredientPrefab: {fileID: 7129802228452865558, guid: 1b011f5546d648846bbb12e9fe1f476a, type: 3}
+  spawnerTimer: 0
+  maxInstances: 2
+--- !u!4 &1381092149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381092147}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.579, y: 5.437, z: -73.167}
+  m_LocalScale: {x: 0.09280357, y: 0.09280357, z: 0.09280357}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1383600617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32655,6 +32827,10 @@ SceneRoots:
   - {fileID: 623945887}
   - {fileID: 1895622049}
   - {fileID: 386170395}
-  - {fileID: 347220300}
   - {fileID: 251325227}
+  - {fileID: 199397124}
+  - {fileID: 347220300}
+  - {fileID: 1227388083}
+  - {fileID: 1381092149}
   - {fileID: 1048525814}
+  - {fileID: 893796094}
