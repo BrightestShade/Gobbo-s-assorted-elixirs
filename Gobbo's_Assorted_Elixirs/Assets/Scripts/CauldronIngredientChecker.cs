@@ -11,10 +11,20 @@ public class CauldronIngredientChecker : MonoBehaviour
     [SerializeField] private Spawner spawner;
     private void OnTriggerEnter(Collider other)
     {
-        if (potionComplete) return;
-
         IngredientItem item = other.GetComponent<IngredientItem>();
         if (item == null) return;
+
+        // If no recipe potion finished reject ingredient
+        if (currentRecipe == null || potionComplete)
+        {
+            SpitOutIngredient(other.gameObject);
+            return;
+        }
+
+        // Disable collider to stop multiple triggers
+        Collider col = other.GetComponent<Collider>();
+        if (col != null)
+            col.enabled = false;
 
         CheckIngredient(item.ingredientData);
 
@@ -25,7 +35,7 @@ public class CauldronIngredientChecker : MonoBehaviour
 
         Destroy(other.gameObject);
 
-        Debug.Log("Ingredient used");
+        Debug.Log("Ingredient destroyed");
     }
 
     void CheckIngredient(IngredientData ingredient)
@@ -58,7 +68,7 @@ public class CauldronIngredientChecker : MonoBehaviour
         else
         {
             FailPotion();
-            Debug.Log("Potion ruined");
+            
         }
     }
 
@@ -85,6 +95,21 @@ public class CauldronIngredientChecker : MonoBehaviour
     {
         addedIngredients.Clear();
         potionComplete = false;
+    }
+    void SpitOutIngredient(GameObject ingredient)
+    {
+        Rigidbody rb = ingredient.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            Vector3 spitDirection = (ingredient.transform.position - transform.position).normalized;
+            spitDirection += Vector3.up * 0.5f;
+
+            rb.linearVelocity = Vector3.zero;
+            rb.AddForce(spitDirection * 2f, ForceMode.Impulse);
+        }
+
+        Debug.Log("Cauldron rejected ingredient");
     }
 
     // For future NPC system
