@@ -16,6 +16,6 @@ public class RecipeBookInteractable : MonoBehaviour
         recipeBookUI.SetActive(isOpen);
 
         
-        PlayerController.Instance.SetInputEnabled(!isOpen); // lock movement
+       // PlayerController.Instance.SetInputEnabled(!isOpen); // lock movement
     }
 }
