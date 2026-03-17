@@ -9,6 +9,10 @@ public class CauldronIngredientChecker : MonoBehaviour
     private List<IngredientData> addedIngredients = new List<IngredientData>();
     private bool potionComplete = false;
     [SerializeField] private Spawner spawner;
+
+    public System.Action OnPotionComplete;
+
+
     private void OnTriggerEnter(Collider other)
     {
         IngredientItem item = other.GetComponent<IngredientItem>();
@@ -90,12 +94,18 @@ public class CauldronIngredientChecker : MonoBehaviour
         Debug.Log("Potion completed");
         addedIngredients.Clear();
         potionComplete = true;
+
+        OnPotionComplete?.Invoke(); 
     }
+
+
     public void ResetPotion()
     {
         addedIngredients.Clear();
         potionComplete = false;
     }
+
+
     void SpitOutIngredient(GameObject ingredient)
     {
         Rigidbody rb = ingredient.GetComponent<Rigidbody>();
@@ -112,6 +122,10 @@ public class CauldronIngredientChecker : MonoBehaviour
         Debug.Log("Cauldron rejected ingredient");
     }
 
+    public bool IsPotionComplete()
+    {
+        return potionComplete;
+    }
     // For future NPC system
     /* public void SetActiveRecipe(PotionRecipe newRecipe)
      {
