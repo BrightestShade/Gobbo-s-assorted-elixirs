@@ -113,7 +113,7 @@ public class AdventurerBehaviour : MonoBehaviour
 
         while (Vector3.Distance(transform.position, exitPoint.position) > 0.1f)
         {
-            // Rotate toward the exit point while walking
+            
             Vector3 direction = (exitPoint.position - transform.position).normalized;
             if (direction != Vector3.zero)
             {
@@ -121,7 +121,7 @@ public class AdventurerBehaviour : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
             }
 
-            // Move toward exit
+            
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 exitPoint.position,

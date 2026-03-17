@@ -48,7 +48,7 @@ public class CauldronIngredientChecker : MonoBehaviour
 
         int step = addedIngredients.Count;
 
-        // Check if we are beyond recipe length
+       
         if (step >= currentRecipe.requiredIngredients.Count)
         {
             FailPotion();
@@ -57,7 +57,7 @@ public class CauldronIngredientChecker : MonoBehaviour
 
         IngredientData requiredIngredient = currentRecipe.requiredIngredients[step];
 
-        // Compare by name instead of reference
+        
         if (ingredient.ingredientName == requiredIngredient.ingredientName)
         {
             addedIngredients.Add(ingredient);
@@ -126,11 +126,5 @@ public class CauldronIngredientChecker : MonoBehaviour
     {
         return potionComplete;
     }
-    // For future NPC system
-    /* public void SetActiveRecipe(PotionRecipe newRecipe)
-     {
-         currentRecipe = newRecipe;
-         addedIngredients.Clear();
-         potionComplete = false;
-     } */
+  
 }

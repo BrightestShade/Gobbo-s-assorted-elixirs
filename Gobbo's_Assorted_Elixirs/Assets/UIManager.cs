@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
         messageText.gameObject.SetActive(true);
         messageText.text = "";
 
-        // Typewriter effect over typeDuration
+       
         float timer = 0f;
         int totalChars = message.Length;
         while (timer < typeDuration)
@@ -41,13 +41,13 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
 
-        // Ensure full text is visible
+        
         messageText.text = message;
 
-        // Wait a tiny bit so user sees the full text before fading
+       
         yield return new WaitForSeconds(0.1f);
 
-        // Fade out over fadeDuration
+      
         timer = 0f;
         Color originalColor = messageText.color;
         while (timer < fadeDuration)
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
 
         messageText.gameObject.SetActive(false);
 
-        // Reset alpha for next message
+       
         messageText.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
         currentCoroutine = null;
     }

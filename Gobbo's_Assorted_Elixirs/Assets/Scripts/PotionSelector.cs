@@ -10,7 +10,7 @@ public class PotionSelector : MonoBehaviour
         if (recipe != null)
         {
             cauldron.currentRecipe = recipe;
-            cauldron.ResetPotion(); // reset progress at the start
+            cauldron.ResetPotion(); 
         }
     }
 }
