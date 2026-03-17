@@ -4,14 +4,18 @@ using System.Collections;
 public class AdventurerSpawner : MonoBehaviour
 {
     public GameObject adventurerPrefab;
+
     public Transform spawnPoint;
     public Transform targetPoint;
+    public Transform lookPoint;
+    public Transform exitPoint;
+
     private GameObject currentAdventurer;
 
     public PotionSelector potionSelector;
     public PotionRecipe[] possiblePotions;
 
-    public Transform exitPoint;
+   
     void Start()
     {
         StartCoroutine(SpawnLoop());
@@ -43,6 +47,7 @@ public class AdventurerSpawner : MonoBehaviour
         script.requestedPotion = GetRandomPotion();
         script.potionSelector = potionSelector;
         script.exitPoint = exitPoint;
+        script.lookPoint = lookPoint; 
     }
 
     public void AdventurerFinished()
