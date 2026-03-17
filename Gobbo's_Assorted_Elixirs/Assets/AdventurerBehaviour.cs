@@ -82,17 +82,9 @@ public class AdventurerBehaviour : MonoBehaviour
 
         switch (requestedPotion.name)
         {
-            case "HealthPotion":
-                UIManager.Instance.ShowMessage(
-                    "I am going to fight something very dangerous, do you have a potion that might help me stay alive?"
-                );
-                break;
+            case "HealthPotion": UIManager.Instance.ShowMessage("I am going to fight something very dangerous, do you have a potion that might help me stay alive?"); break;
 
-            case "InvisPotion":
-                UIManager.Instance.ShowMessage(
-                    "I need to sneak past a dangerous creature, can you help me out?"
-                );
-                break;
+            case "InvisPotion": UIManager.Instance.ShowMessage("I need to sneak past a dangerous creature, can you help me out?" ); break;
         }
 
         cauldron.OnPotionComplete += OnPotionFinished;
@@ -101,15 +93,20 @@ public class AdventurerBehaviour : MonoBehaviour
     void OnPotionFinished()
     {
         if (isLeaving) return;
-
+        UIManager.Instance.ShowMessage("Thank you very much this will be very useful, farewell");
+        
         isLeaving = true;
-        Debug.Log("Potion received! Leaving...");
+        StartCoroutine(DelayedLeave(2f));
+    }
+    IEnumerator DelayedLeave(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         StartCoroutine(Leave());
     }
-
     IEnumerator Leave()
     {
         cauldron.OnPotionComplete -= OnPotionFinished;
+        
 
         while (Vector3.Distance(transform.position, exitPoint.position) > 0.1f)
         {
