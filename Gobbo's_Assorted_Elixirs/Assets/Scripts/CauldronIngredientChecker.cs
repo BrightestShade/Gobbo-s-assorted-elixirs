@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class CauldronIngredientChecker : MonoBehaviour
 {
@@ -12,20 +13,32 @@ public class CauldronIngredientChecker : MonoBehaviour
 
     public System.Action OnPotionComplete;
 
+    [SerializeField] private ParticleSystem smokeParticles;
+
+    private Color defaultSmokeColor;
+
+    void Start()
+    {
+        if (smokeParticles != null)
+        {
+            var main = smokeParticles.main;
+            defaultSmokeColor = main.startColor.color;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         IngredientItem item = other.GetComponent<IngredientItem>();
         if (item == null) return;
 
-        // If no recipe potion finished reject ingredient
+        
         if (currentRecipe == null || potionComplete)
         {
             SpitOutIngredient(other.gameObject);
             return;
         }
 
-        // Disable collider to stop multiple triggers
+        
         Collider col = other.GetComponent<Collider>();
         if (col != null)
             col.enabled = false;
@@ -48,6 +61,8 @@ public class CauldronIngredientChecker : MonoBehaviour
 
         int step = addedIngredients.Count;
 
+
+
        
         if (step >= currentRecipe.requiredIngredients.Count)
         {
@@ -57,8 +72,8 @@ public class CauldronIngredientChecker : MonoBehaviour
 
         IngredientData requiredIngredient = currentRecipe.requiredIngredients[step];
 
-        
-        if (ingredient.ingredientName == requiredIngredient.ingredientName)
+
+        if (ingredient == requiredIngredient)
         {
             addedIngredients.Add(ingredient);
             GoodIngredientFeedback();
@@ -79,14 +94,19 @@ public class CauldronIngredientChecker : MonoBehaviour
     void GoodIngredientFeedback()
     {
         Debug.Log("Correct ingredient");
-        // Flash blue
-        // Play bubbly sound
+
+        StartCoroutine(FlashSmokeColor(Color.green, 0.5f));
+
+        // add bubbly sound later
     }
 
     void FailPotion()
     {
         Debug.Log("Wrong ingredient and potion ruined.");
+
         addedIngredients.Clear();
+
+        StartCoroutine(FlashSmokeColor(Color.black, 0.5f));
     }
 
     void CompletePotion()
@@ -126,5 +146,20 @@ public class CauldronIngredientChecker : MonoBehaviour
     {
         return potionComplete;
     }
-  
+
+    IEnumerator FlashSmokeColor(Color flashColor, float duration)
+    {
+        if (smokeParticles == null) yield break;
+
+        var main = smokeParticles.main;
+
+        
+        main.startColor = flashColor;
+
+        yield return new WaitForSeconds(duration);
+
+       
+        main.startColor = defaultSmokeColor;
+    }
+
 }
