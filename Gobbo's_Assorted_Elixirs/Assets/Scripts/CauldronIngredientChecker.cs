@@ -15,14 +15,14 @@ public class CauldronIngredientChecker : MonoBehaviour
 
     [SerializeField] private ParticleSystem smokeParticles;
 
-    private Color defaultSmokeColor;
+    private ParticleSystem.MinMaxGradient defaultSmokeColor;
 
     void Start()
     {
         if (smokeParticles != null)
         {
             var main = smokeParticles.main;
-            defaultSmokeColor = main.startColor.color;
+            defaultSmokeColor = main.startColor;
         }
     }
 
@@ -95,7 +95,7 @@ public class CauldronIngredientChecker : MonoBehaviour
     {
         Debug.Log("Correct ingredient");
 
-        StartCoroutine(FlashSmokeColor(Color.green, 0.5f));
+        StartCoroutine(FlashSmokeColor(Color.green,2f));
 
         // add bubbly sound later
     }
@@ -106,7 +106,7 @@ public class CauldronIngredientChecker : MonoBehaviour
 
         addedIngredients.Clear();
 
-        StartCoroutine(FlashSmokeColor(Color.black, 0.5f));
+        StartCoroutine(FlashSmokeColor(Color.red, 2f));
     }
 
     void CompletePotion()

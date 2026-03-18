@@ -15,7 +15,7 @@ public class AdventurerSpawner : MonoBehaviour
     public PotionSelector potionSelector;
     public PotionRecipe[] possiblePotions;
 
-   
+    public AdventurerInteraction orderTrigger;
     void Start()
     {
         StartCoroutine(SpawnLoop());
@@ -47,7 +47,8 @@ public class AdventurerSpawner : MonoBehaviour
         script.requestedPotion = GetRandomPotion();
         script.potionSelector = potionSelector;
         script.exitPoint = exitPoint;
-        script.lookPoint = lookPoint; 
+        script.lookPoint = lookPoint;
+        script.orderTrigger = orderTrigger;
     }
 
     public void AdventurerFinished()

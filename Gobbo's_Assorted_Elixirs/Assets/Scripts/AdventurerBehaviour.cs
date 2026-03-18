@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class AdventurerBehaviour : MonoBehaviour
 {
     public Transform targetPoint;
@@ -18,6 +18,10 @@ public class AdventurerBehaviour : MonoBehaviour
     private CauldronIngredientChecker cauldron;
     private bool isLeaving = false;
 
+
+    public AdventurerInteraction orderTrigger;
+    private bool hasGivenOrder = false;
+    private bool potionReady = false;
     void Start()
     {
         spawner = FindObjectOfType<AdventurerSpawner>();
@@ -28,7 +32,7 @@ public class AdventurerBehaviour : MonoBehaviour
 
     IEnumerator MoveAndWait()
     {
-        // Walk to the target point while facing it
+       
         while (Vector3.Distance(transform.position, targetPoint.position) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(
@@ -47,13 +51,16 @@ public class AdventurerBehaviour : MonoBehaviour
             yield return null;
         }
 
-        // Fully face the target point
+      
         transform.LookAt(targetPoint);
 
-        // Request the potion
-        RequestPotion();
+        if (orderTrigger != null)
+        {
+            orderTrigger.SetAdventurer(this);
+        }
 
-        // While waiting for potion, keep looking at lookPoint
+
+
         while (!isLeaving)
         {
             if (lookPoint != null)
@@ -68,9 +75,22 @@ public class AdventurerBehaviour : MonoBehaviour
             yield return null;
         }
     }
-
-    void RequestPotion()
+    public void Interact()
     {
+        if (!hasGivenOrder)
+        {
+            GiveOrder();
+        }
+        else if (potionReady && !isLeaving)
+        {
+            CompleteInteraction();
+        }
+    }
+
+    void GiveOrder()
+    {
+        hasGivenOrder = true;
+
         if (requestedPotion == null)
         {
             Debug.LogError("No potion assigned!");
@@ -78,13 +98,16 @@ public class AdventurerBehaviour : MonoBehaviour
         }
 
         potionSelector.SetPotion(requestedPotion);
-        Debug.Log("Adventurer requested: " + requestedPotion.name);
 
         switch (requestedPotion.name)
         {
-            case "HealthPotion": UIManager.Instance.ShowMessage("I am going to fight something very dangerous, do you have a potion that might help me stay alive?"); break;
+            case "HealthPotion":
+                UIManager.Instance.ShowMessage("I am going to fight something dangerous, do you have something to help me stay alive?");
+                break;
 
-            case "InvisPotion": UIManager.Instance.ShowMessage("I need to sneak past a dangerous creature, can you help me out?" ); break;
+            case "InvisPotion":
+                UIManager.Instance.ShowMessage("I need to sneak past something... got anything useful?");
+                break;
         }
 
         cauldron.OnPotionComplete += OnPotionFinished;
@@ -92,9 +115,13 @@ public class AdventurerBehaviour : MonoBehaviour
 
     void OnPotionFinished()
     {
-        if (isLeaving) return;
-        UIManager.Instance.ShowMessage("Thank you very much this will be very useful, farewell");
-        
+        potionReady = true;
+
+    }
+    void CompleteInteraction()
+    {
+        UIManager.Instance.ShowMessage("Thank you, farewell.");
+
         isLeaving = true;
         StartCoroutine(DelayedLeave(2f));
     }
@@ -130,5 +157,15 @@ public class AdventurerBehaviour : MonoBehaviour
 
         spawner.AdventurerFinished();
         Destroy(gameObject);
+    }
+
+    public bool IsPotionReady()
+    {
+        return potionReady;
+    }
+
+    public bool HasGivenOrder()
+    {
+        return hasGivenOrder;
     }
 }
