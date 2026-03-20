@@ -22,6 +22,11 @@ public class AdventurerBehaviour : MonoBehaviour
     public AdventurerInteraction orderTrigger;
     private bool hasGivenOrder = false;
     private bool potionReady = false;
+
+    private static bool firstAdventurerSpawned = false;
+
+    private bool interactionLocked = false;
+
     void Start()
     {
         spawner = FindObjectOfType<AdventurerSpawner>();
@@ -57,6 +62,12 @@ public class AdventurerBehaviour : MonoBehaviour
         if (orderTrigger != null)
         {
             orderTrigger.SetAdventurer(this);
+
+            if (!firstAdventurerSpawned)
+            {
+                UIManager.Instance.ShowMessage("Hello? Over here by the window.");
+                firstAdventurerSpawned = true;
+            }
         }
 
 

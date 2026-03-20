@@ -9,6 +9,9 @@ public class AdventurerInteraction : MonoBehaviour
     public GameObject interactPrompt;
     private TMP_Text promptText;
 
+    private bool interactionLocked = false;
+    private bool interactionComplete = false;
+
     void Start()
     {
         if (interactPrompt != null)
@@ -17,13 +20,33 @@ public class AdventurerInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (playerInside && currentAdventurer != null)
+        if (playerInside && currentAdventurer != null && !interactionComplete)
         {
-            UpdatePromptText();
-
-            if (Input.GetKeyDown(KeyCode.E))
+            if (!currentAdventurer.HasGivenOrder() || currentAdventurer.IsPotionReady())
             {
-                currentAdventurer.Interact();
+                if (interactPrompt != null && !interactPrompt.activeSelf)
+                    interactPrompt.SetActive(true);
+
+                UpdatePromptText();
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    currentAdventurer.Interact();
+
+                    if (interactPrompt != null)
+                        interactPrompt.SetActive(false);
+
+                    
+                    if (currentAdventurer.IsPotionReady())
+                    {
+                        interactionComplete = true;
+                    }
+                }
+            }
+            else
+            {
+                if (interactPrompt != null)
+                    interactPrompt.SetActive(false);
             }
         }
     }
@@ -39,8 +62,13 @@ public class AdventurerInteraction : MonoBehaviour
         else if (currentAdventurer.IsPotionReady())
         {
             promptText.text = "Press E to deliver potion";
+
+          
+            interactionLocked = false;
+
+            if (interactPrompt != null && !interactPrompt.activeSelf)
+                interactPrompt.SetActive(true);
         }
-      
     }
 
     private void OnTriggerEnter(Collider other)
@@ -71,6 +99,7 @@ public class AdventurerInteraction : MonoBehaviour
     public void SetAdventurer(AdventurerBehaviour adventurer)
     {
         currentAdventurer = adventurer;
+        interactionComplete = false; // resets the interaction complete for new NPC allowing for the player to interact with them again
         gameObject.SetActive(true);
     }
 }
