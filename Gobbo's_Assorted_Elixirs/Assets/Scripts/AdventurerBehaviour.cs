@@ -12,7 +12,6 @@ public class AdventurerBehaviour : MonoBehaviour
     private AdventurerSpawner spawner;
     public Transform exitPoint;
 
-    // The point the adventurer looks at while waiting for the potion
     public Transform lookPoint;
 
     private CauldronIngredientChecker cauldron;
@@ -25,7 +24,7 @@ public class AdventurerBehaviour : MonoBehaviour
 
     private static bool firstAdventurerSpawned = false;
 
-    private bool interactionLocked = false;
+    
 
     void Start()
     {

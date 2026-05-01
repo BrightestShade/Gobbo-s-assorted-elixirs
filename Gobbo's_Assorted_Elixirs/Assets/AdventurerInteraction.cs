@@ -79,8 +79,18 @@ public class AdventurerInteraction : MonoBehaviour
 
             if (interactPrompt != null)
             {
-                interactPrompt.SetActive(true);
                 UpdatePromptText();
+
+                if ((!currentAdventurer.HasGivenOrder() || currentAdventurer.IsPotionReady()) && !interactionComplete)
+                {
+                    if (interactPrompt != null)
+                        interactPrompt.SetActive(true);
+                }
+                else
+                {
+                    if (interactPrompt != null)
+                        interactPrompt.SetActive(false);
+                }
             }
         }
     }
