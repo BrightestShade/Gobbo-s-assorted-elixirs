@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 public class CauldronIngredientChecker : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class CauldronIngredientChecker : MonoBehaviour
     [SerializeField] private ParticleSystem smokeParticles;
 
     private ParticleSystem.MinMaxGradient defaultSmokeColor;
+
+    public TMP_Text successText;
 
     void Start()
     {
@@ -114,6 +117,8 @@ public class CauldronIngredientChecker : MonoBehaviour
         Debug.Log("Potion completed");
         addedIngredients.Clear();
         potionComplete = true;
+
+
 
         OnPotionComplete?.Invoke(); 
     }

@@ -3,19 +3,20 @@ using System.Collections;
 using UnityEngine.UI;
 public class AdventurerBehaviour : MonoBehaviour
 {
-    public Transform targetPoint;
-    public float speed = 2f;
-
-    public PotionRecipe requestedPotion;
+    public Transform targetPoint; // target point for movement 
+    public float speed = 2f; // movement speed
+    
+    
+    public PotionRecipe requestedPotion; 
     public PotionSelector potionSelector;
 
     private AdventurerSpawner spawner;
-    public Transform exitPoint;
+    public Transform exitPoint; // despawn point for adventurer
 
-    public Transform lookPoint;
+    public Transform lookPoint; // where the adventurer looks
 
-    private CauldronIngredientChecker cauldron;
-    private bool isLeaving = false;
+    private CauldronIngredientChecker cauldron; // reference to cauldron checker script
+    private bool isLeaving = false; 
 
 
     public AdventurerInteraction orderTrigger;
@@ -28,10 +29,10 @@ public class AdventurerBehaviour : MonoBehaviour
 
     void Start()
     {
-        spawner = FindObjectOfType<AdventurerSpawner>();
+        spawner = FindObjectOfType<AdventurerSpawner>(); //checks the Adventurer spawner and cauldronIngredient checker objects are in the scene
         cauldron = FindObjectOfType<CauldronIngredientChecker>();
 
-        StartCoroutine(MoveAndWait());
+        StartCoroutine(MoveAndWait()); 
     }
 
     IEnumerator MoveAndWait()
