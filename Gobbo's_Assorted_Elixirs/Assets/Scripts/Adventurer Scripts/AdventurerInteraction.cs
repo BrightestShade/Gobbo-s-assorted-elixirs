@@ -36,7 +36,8 @@ public class AdventurerInteraction : MonoBehaviour
                     if (interactPrompt != null)
                         interactPrompt.SetActive(false);
 
-                    
+
+
                     if (currentAdventurer.IsPotionReady())
                     {
                         interactionComplete = true;

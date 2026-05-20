@@ -131,6 +131,8 @@ public class AdventurerBehaviour : MonoBehaviour
     }
     void CompleteInteraction()
     {
+        ScoreManager.Instance.AddScore();
+
         UIManager.Instance.ShowMessage("Thank you, farewell.");
 
         isLeaving = true;
