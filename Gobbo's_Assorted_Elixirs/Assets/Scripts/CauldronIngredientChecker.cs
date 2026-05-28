@@ -20,6 +20,8 @@ public class CauldronIngredientChecker : MonoBehaviour
 
     public TMP_Text successText;
 
+    public PotionRecipe brewedPotion;
+
     void Start()
     {
         if (smokeParticles != null)
@@ -115,12 +117,13 @@ public class CauldronIngredientChecker : MonoBehaviour
     void CompletePotion()
     {
         Debug.Log("Potion completed");
+
+        brewedPotion = currentRecipe;
+
         addedIngredients.Clear();
         potionComplete = true;
 
-
-
-        OnPotionComplete?.Invoke(); 
+        OnPotionComplete?.Invoke();
     }
 
 

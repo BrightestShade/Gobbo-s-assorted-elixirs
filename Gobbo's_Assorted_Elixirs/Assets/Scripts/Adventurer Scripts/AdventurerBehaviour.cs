@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class AdventurerBehaviour : MonoBehaviour
 {
     public Transform targetPoint; // target point for movement 
@@ -23,9 +25,11 @@ public class AdventurerBehaviour : MonoBehaviour
     private bool hasGivenOrder = false;
     private bool potionReady = false;
 
-    private static bool firstAdventurerSpawned = false;
-
     
+
+    private static bool firstAdventurerSpawned = false;
+   
+
 
     void Start()
     {
@@ -108,7 +112,8 @@ public class AdventurerBehaviour : MonoBehaviour
             return;
         }
 
-        potionSelector.SetPotion(requestedPotion);
+        // potionSelector.SetPotion(requestedPotion); 
+        // The above line can be used to auto set the cauldron checker potion to the requested potion. 
 
         switch (requestedPotion.name)
         {
@@ -131,18 +136,42 @@ public class AdventurerBehaviour : MonoBehaviour
     }
     void CompleteInteraction()
     {
+        if (cauldron.brewedPotion != requestedPotion)
+        {
+            UIManager.Instance.ShowMessage("Thank you, farewell");
+
+            Debug.Log("GameOver");
+
+            float loseDelay = Random.Range(60f, 180f);
+
+            GameOverManager.Instance.QueueLose(loseDelay);
+
+            isLeaving = true;
+
+            StartCoroutine(DelayedLeave(2f));
+
+            return;
+        }
+
         ScoreManager.Instance.AddScore();
 
         UIManager.Instance.ShowMessage("Thank you, farewell.");
 
         isLeaving = true;
+
         StartCoroutine(DelayedLeave(2f));
     }
+
+
+
     IEnumerator DelayedLeave(float delay)
     {
         yield return new WaitForSeconds(delay);
         StartCoroutine(Leave());
     }
+
+
+
     IEnumerator Leave()
     {
         cauldron.OnPotionComplete -= OnPotionFinished;
@@ -171,6 +200,7 @@ public class AdventurerBehaviour : MonoBehaviour
         spawner.AdventurerFinished();
         Destroy(gameObject);
     }
+
 
     public bool IsPotionReady()
     {
