@@ -28,16 +28,20 @@ public class AdventurerBehaviour : MonoBehaviour
     
 
     private static bool firstAdventurerSpawned = false;
-   
 
-
+    public RequestTimer timerUI;
+    public float requestTimeLimit = 90f;
     void Start()
     {
-        spawner = FindObjectOfType<AdventurerSpawner>(); //checks the Adventurer spawner and cauldronIngredient checker objects are in the scene
-        cauldron = FindObjectOfType<CauldronIngredientChecker>();
+        if (timerUI == null)
+            timerUI = FindObjectOfType<RequestTimer>();
 
-        StartCoroutine(MoveAndWait()); 
+        spawner = FindObjectOfType<AdventurerSpawner>();
+        cauldron = FindObjectOfType<CauldronIngredientChecker>(); //checks the Adventurer spawner and cauldronIngredient checker objects are in the scene
+
+        StartCoroutine(MoveAndWait());
     }
+   
 
     IEnumerator MoveAndWait()
     {
@@ -112,9 +116,6 @@ public class AdventurerBehaviour : MonoBehaviour
             return;
         }
 
-        // potionSelector.SetPotion(requestedPotion); 
-        // The above line can be used to auto set the cauldron checker potion to the requested potion. 
-
         switch (requestedPotion.name)
         {
             case "HealthPotion":
@@ -127,6 +128,9 @@ public class AdventurerBehaviour : MonoBehaviour
         }
 
         cauldron.OnPotionComplete += OnPotionFinished;
+
+        
+        StartCoroutine(StartTimerAfterText()); // Starts the Request timer after the adventurer finishes speaking
     }
 
     void OnPotionFinished()
@@ -138,6 +142,9 @@ public class AdventurerBehaviour : MonoBehaviour
     {
         if (cauldron.brewedPotion != requestedPotion)
         {
+            timerUI.StopTimer();
+            timerUI.OnTimerExpired -= HandleTimerFail;
+
             UIManager.Instance.ShowMessage("Thank you, farewell");
 
             Debug.Log("GameOver");
@@ -152,7 +159,8 @@ public class AdventurerBehaviour : MonoBehaviour
 
             return;
         }
-
+        timerUI.StopTimer();
+        timerUI.OnTimerExpired -= HandleTimerFail;
         ScoreManager.Instance.AddScore();
 
         UIManager.Instance.ShowMessage("Thank you, farewell.");
@@ -170,7 +178,13 @@ public class AdventurerBehaviour : MonoBehaviour
         StartCoroutine(Leave());
     }
 
+    IEnumerator StartTimerAfterText()
+    {
+        yield return new WaitForSeconds(0.5f); // adjust if needed
 
+        timerUI.OnTimerExpired += HandleTimerFail;
+        timerUI.StartTimer(requestTimeLimit);
+    }
 
     IEnumerator Leave()
     {
@@ -210,5 +224,14 @@ public class AdventurerBehaviour : MonoBehaviour
     public bool HasGivenOrder()
     {
         return hasGivenOrder;
+    }
+
+    void HandleTimerFail()
+    {
+        if (isLeaving) return;
+
+        Debug.Log("Timer ended");
+
+        SceneManager.LoadSceneAsync(3);
     }
 }

@@ -67,10 +67,18 @@ public class IngredientPickUp : MonoBehaviour
         Drop();
     }
 
-   /* private void OnMouseExit()
+    /* private void OnMouseExit() // I added this method to avoid the object being able to collide with something and become off centre. However it caused the frustrating pick up issues where if you moved too fast or moved the camera too fast, it would drop the object. 
+     {
+         Drop();
+     }*/
+    private void OnCollisionEnter(Collision collision)
     {
-        Drop();
-    }*/
+        if (isHolding)
+        {
+            Debug.Log("Collison forced drop");
+            Drop();
+        }
+    }
 
     private void Hold()
     {

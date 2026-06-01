@@ -374,8 +374,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: At some point, you gave an adventurer the wrong potion and they left a
-    terrible review and sued you. As a result you have closed down.
+  m_text: You took too long and the adventurer decided it would be faster to loot
+    your shop for what he needed.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 343be205b5743f243bdfc878bc4395f1, type: 2}
   m_sharedMaterial: {fileID: 177148042615600740, guid: 343be205b5743f243bdfc878bc4395f1, type: 2}
