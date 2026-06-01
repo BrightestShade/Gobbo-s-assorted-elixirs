@@ -142,7 +142,7 @@ public class AdventurerBehaviour : MonoBehaviour
 
             Debug.Log("GameOver");
 
-            float loseDelay = Random.Range(60f, 180f);
+            float loseDelay = Random.Range(10f, 30f); // Configurable, idea behind the delay before the lose screen is to throw off the player. E.g. They wont immediately know which potion they got wrong. This would help to increase the replayability of the game if there was more potion recipes.
 
             GameOverManager.Instance.QueueLose(loseDelay);
 

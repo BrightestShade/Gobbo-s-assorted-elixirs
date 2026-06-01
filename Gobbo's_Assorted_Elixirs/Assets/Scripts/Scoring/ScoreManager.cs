@@ -13,14 +13,27 @@ public class ScoreManager : MonoBehaviour
 
     [Header("Floating Popup")]
     public GameObject floatingTextPrefab;
-
     public Transform popupSpawnPoint;
 
     private int currentScore = 0;
+    private int highScore = 0;
+
+    public int CurrentScore => currentScore;
+    public int HighScore => highScore;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            highScore = PlayerPrefs.GetInt("HighScore", 0);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -35,6 +48,23 @@ public class ScoreManager : MonoBehaviour
         UpdateScoreUI();
 
         SpawnFloatingText(pointsPerPotion);
+    }
+
+    public void SaveHighScore()
+    {
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public void ResetScore()
+    {
+        currentScore = 0;
+        UpdateScoreUI();
     }
 
     void SpawnFloatingText(int amount)
@@ -60,7 +90,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Earnings" + currentScore;
+            scoreText.text = "Earnings: " + currentScore;
         }
     }
 }
