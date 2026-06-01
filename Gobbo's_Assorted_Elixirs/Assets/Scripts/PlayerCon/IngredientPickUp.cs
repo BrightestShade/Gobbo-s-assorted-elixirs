@@ -6,8 +6,10 @@ public class IngredientPickUp : MonoBehaviour
 
     [SerializeField]
     float throwForce = 600f;
+
     [SerializeField]
     float maxDistance = 3f;
+
     float distance;
 
     TempParent tempParent;
@@ -15,85 +17,81 @@ public class IngredientPickUp : MonoBehaviour
 
     Vector3 objectPos;
 
-
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         tempParent = TempParent.Instance;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // distance = Vector3.Distance(this.transform.position, tempParent.transform.position);
+        if (tempParent != null)
+        {
+            distance = Vector3.Distance(
+                transform.position,
+                tempParent.transform.position);
+        }
 
         if (isHolding)
         {
             Hold();
-            
         }
     }
 
-     private void OnMouseDown()
-     {
-         // pickup
-         if(tempParent != null)
-         {
-             maxDistance = Vector3.Distance(this.transform.position, tempParent.transform.position);
-             if (distance <= maxDistance)
-             {
-                 isHolding = true;
-                 rb.useGravity = false;
-                 rb.detectCollisions = true;
+    private void OnMouseDown()
+    {
+        if (tempParent != null)
+        {
+            if (distance <= maxDistance)
+            {
+                isHolding = true;
 
-                 this.transform.SetParent(tempParent.transform);
-             }
-         }
-         else
-         {
-             Debug.Log("Temp Parent item not found in scene");
+                rb.useGravity = false;
+                rb.detectCollisions = true;
 
-         }
-     }
-    
+                transform.SetParent(tempParent.transform);
+
+                // Snap to hold point
+                transform.localPosition = Vector3.zero;
+                transform.localRotation = Quaternion.identity;
+            }
+        }
+        else
+        {
+            Debug.Log("Temp Parent item not found in scene");
+        }
+    }
 
     private void OnMouseUp()
     {
         Drop();
     }
 
-       private void OnMouseExit()
-       {
-           Drop();
-       }
+   /* private void OnMouseExit()
+    {
+        Drop();
+    }*/
 
-     private void Hold()
-     {
-         rb.linearVelocity = Vector3.zero;
-         rb.angularVelocity = Vector3.zero;
+    private void Hold()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
-        if(distance >= maxDistance)
-         {
-             Drop();
-         }
-     }
+        if (distance >= maxDistance)
+        {
+            Drop();
+        }
+    }
 
-     private void Drop()
-     {
-         if (isHolding)
-         {
-             isHolding = false;
-             objectPos = this.transform.position;
-             this.transform.position = objectPos;
-             this.transform.SetParent(null);
-             rb.useGravity = true;
-         }
-     }
-   
-
-
-
+    private void Drop()
+    {
+        if (isHolding)
+        {
+            isHolding = false;
+            objectPos = transform.position;
+            transform.position = objectPos;
+            transform.SetParent(null);
+            rb.useGravity = true;
+        }
+    }
 }
