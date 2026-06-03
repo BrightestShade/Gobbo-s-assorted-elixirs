@@ -86,11 +86,43 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    void SpawnNegativeFloatingText(int amount)
+    {
+        if (floatingTextPrefab == null || popupSpawnPoint == null)
+            return;
+
+        GameObject popup = Instantiate(
+            floatingTextPrefab,
+            popupSpawnPoint.position,
+            Quaternion.identity
+        );
+
+        ScorePopUp floatingText = popup.GetComponent<ScorePopUp>();
+
+        if (floatingText != null)
+        {
+            floatingText.SetText("-" + amount);
+        }
+    }
+
     void UpdateScoreUI()
     {
         if (scoreText != null)
         {
             scoreText.text = "Earnings: " + currentScore;
         }
+    }
+
+    public void RemoveScore(int amount)
+    {
+        currentScore -= amount;
+
+        // prevents score going below 0. Not needed but will keep incase needed later.
+        //if (currentScore < 0)
+           // currentScore = 0;
+
+        UpdateScoreUI();
+
+        SpawnNegativeFloatingText(amount);
     }
 }

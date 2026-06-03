@@ -1,51 +1,55 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class AdventurerBehaviour : MonoBehaviour
 {
-    public Transform targetPoint; // target point for movement 
-    public float speed = 2f; // movement speed
-    
-    
-    public PotionRecipe requestedPotion; 
+    public Transform targetPoint;
+    public float speed = 2f;
+
+    public PotionRecipe requestedPotion;
     public PotionSelector potionSelector;
 
     private AdventurerSpawner spawner;
-    public Transform exitPoint; // despawn point for adventurer
 
-    public Transform lookPoint; // where the adventurer looks
+    public Transform exitPoint;
+    public Transform lookPoint;
 
-    private CauldronIngredientChecker cauldron; // reference to cauldron checker script
-    private bool isLeaving = false; 
-
+    private CauldronIngredientChecker cauldron;
+    private bool isLeaving = false;
 
     public AdventurerInteraction orderTrigger;
+
     private bool hasGivenOrder = false;
     private bool potionReady = false;
 
-    
-
     private static bool firstAdventurerSpawned = false;
 
-    public RequestTimer timerUI;
+    [Header("Request Patience")]
+    public PatienceBarRequest requestBarUI;
     public float requestTimeLimit = 90f;
+
+    [Header("Arrival Patience")]
+    public ArrivalPatienceBar arrivalBarUI;
+    public float arrivalTimeLimit = 10f;
+
     void Start()
     {
-        if (timerUI == null)
-            timerUI = FindObjectOfType<RequestTimer>();
+        if (requestBarUI == null)
+            requestBarUI = FindObjectOfType<PatienceBarRequest>();
+
+        if (arrivalBarUI == null)
+            arrivalBarUI = FindObjectOfType<ArrivalPatienceBar>();
 
         spawner = FindObjectOfType<AdventurerSpawner>();
-        cauldron = FindObjectOfType<CauldronIngredientChecker>(); //checks the Adventurer spawner and cauldronIngredient checker objects are in the scene
+        cauldron = FindObjectOfType<CauldronIngredientChecker>();
 
         StartCoroutine(MoveAndWait());
     }
-   
 
     IEnumerator MoveAndWait()
     {
-       
+        // Move to counter
         while (Vector3.Distance(transform.position, targetPoint.position) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(
@@ -55,47 +59,73 @@ public class AdventurerBehaviour : MonoBehaviour
             );
 
             Vector3 direction = (targetPoint.position - transform.position).normalized;
+
             if (direction != Vector3.zero)
             {
                 Quaternion lookRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    lookRotation,
+                    Time.deltaTime * 5f
+                );
             }
 
             yield return null;
         }
 
-      
+        // Face counter initially
         transform.LookAt(targetPoint);
 
+        // Start arrival patience
+        StartArrivalBar();
+
+        // Setup interaction
         if (orderTrigger != null)
         {
             orderTrigger.SetAdventurer(this);
 
             if (!firstAdventurerSpawned)
             {
-                UIManager.Instance.ShowMessage("Hello? Over here by the window.");
+                UIManager.Instance.ShowMessage(
+                    "Hello? Over here by the window."
+                );
+
                 firstAdventurerSpawned = true;
             }
         }
 
-
-
+        // Idle look behaviour
         while (!isLeaving)
         {
             if (lookPoint != null)
             {
-                Vector3 direction = (lookPoint.position - transform.position).normalized;
+                Vector3 direction =
+                    (lookPoint.position - transform.position).normalized;
+
                 if (direction != Vector3.zero)
                 {
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 2f);
+                    Quaternion lookRotation =
+                        Quaternion.LookRotation(direction);
+
+                    transform.rotation = Quaternion.Slerp(
+                        transform.rotation,
+                        lookRotation,
+                        Time.deltaTime * 2f
+                    );
                 }
             }
+
             yield return null;
         }
     }
+
     public void Interact()
     {
+        // Stop arrival patience when player talks
+        arrivalBarUI.StopBar();
+        arrivalBarUI.OnExpired -= HandleArrivalFail;
+
         if (!hasGivenOrder)
         {
             GiveOrder();
@@ -119,37 +149,42 @@ public class AdventurerBehaviour : MonoBehaviour
         switch (requestedPotion.name)
         {
             case "HealthPotion":
-                UIManager.Instance.ShowMessage("I am going to fight something dangerous, do you have something to help me stay alive?");
+                UIManager.Instance.ShowMessage(
+                    "I am going to fight something dangerous, do you have something to help me stay alive?"
+                );
                 break;
 
             case "InvisPotion":
-                UIManager.Instance.ShowMessage("I need to sneak past something... got anything useful?");
+                UIManager.Instance.ShowMessage(
+                    "I need to sneak past something... got anything useful?"
+                );
                 break;
         }
 
         cauldron.OnPotionComplete += OnPotionFinished;
 
-        
-        StartCoroutine(StartTimerAfterText()); // Starts the Request timer after the adventurer finishes speaking
+        // Start request patience after dialogue
+        StartCoroutine(StartTimerAfterText());
     }
 
     void OnPotionFinished()
     {
         potionReady = true;
-
     }
+
     void CompleteInteraction()
     {
+        // Wrong potion
         if (cauldron.brewedPotion != requestedPotion)
         {
-            timerUI.StopTimer();
-            timerUI.OnTimerExpired -= HandleTimerFail;
+            requestBarUI.StopTimer();
+            requestBarUI.OnTimerExpired -= HandleTimerFail;
 
             UIManager.Instance.ShowMessage("Thank you, farewell");
 
             Debug.Log("GameOver");
 
-            float loseDelay = Random.Range(10f, 30f); // Configurable, idea behind the delay before the lose screen is to throw off the player. E.g. They wont immediately know which potion they got wrong. This would help to increase the replayability of the game if there was more potion recipes.
+            float loseDelay = Random.Range(10f, 30f);
 
             GameOverManager.Instance.QueueLose(loseDelay);
 
@@ -159,8 +194,11 @@ public class AdventurerBehaviour : MonoBehaviour
 
             return;
         }
-        timerUI.StopTimer();
-        timerUI.OnTimerExpired -= HandleTimerFail;
+
+        // Correct potion
+        requestBarUI.StopTimer();
+        requestBarUI.OnTimerExpired -= HandleTimerFail;
+
         ScoreManager.Instance.AddScore();
 
         UIManager.Instance.ShowMessage("Thank you, farewell.");
@@ -170,38 +208,42 @@ public class AdventurerBehaviour : MonoBehaviour
         StartCoroutine(DelayedLeave(2f));
     }
 
-
-
     IEnumerator DelayedLeave(float delay)
     {
         yield return new WaitForSeconds(delay);
+
         StartCoroutine(Leave());
     }
 
     IEnumerator StartTimerAfterText()
     {
-        yield return new WaitForSeconds(0.5f); // adjust if needed
+        yield return new WaitForSeconds(0.5f);
 
-        timerUI.OnTimerExpired += HandleTimerFail;
-        timerUI.StartTimer(requestTimeLimit);
+        requestBarUI.OnTimerExpired += HandleTimerFail;
+        requestBarUI.StartTimer(requestTimeLimit);
     }
 
     IEnumerator Leave()
     {
         cauldron.OnPotionComplete -= OnPotionFinished;
-        
 
         while (Vector3.Distance(transform.position, exitPoint.position) > 0.1f)
         {
-            
-            Vector3 direction = (exitPoint.position - transform.position).normalized;
+            Vector3 direction =
+                (exitPoint.position - transform.position).normalized;
+
             if (direction != Vector3.zero)
             {
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+                Quaternion lookRotation =
+                    Quaternion.LookRotation(direction);
+
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    lookRotation,
+                    Time.deltaTime * 5f
+                );
             }
 
-            
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 exitPoint.position,
@@ -212,9 +254,9 @@ public class AdventurerBehaviour : MonoBehaviour
         }
 
         spawner.AdventurerFinished();
+
         Destroy(gameObject);
     }
-
 
     public bool IsPotionReady()
     {
@@ -230,8 +272,34 @@ public class AdventurerBehaviour : MonoBehaviour
     {
         if (isLeaving) return;
 
-        Debug.Log("Timer ended");
+        Debug.Log("Request timer ended");
 
         SceneManager.LoadSceneAsync(3);
+    }
+
+    void StartArrivalBar()
+    {
+        arrivalBarUI.OnExpired += HandleArrivalFail;
+        arrivalBarUI.StartBar(arrivalTimeLimit);
+    }
+
+    void HandleArrivalFail()
+    {
+        if (isLeaving) return;
+
+        Debug.Log("Adventurer ignored");
+
+        arrivalBarUI.OnExpired -= HandleArrivalFail;
+
+        ScoreManager.Instance.RemoveScore(10);
+
+        UIManager.Instance.ShowMessage
+        (
+            "I suppose i'll just take some gold and leave..."
+        );
+
+        isLeaving = true;
+
+        StartCoroutine(DelayedLeave(2f));
     }
 }

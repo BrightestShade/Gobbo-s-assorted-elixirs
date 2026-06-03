@@ -2,17 +2,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class RequestTimer : MonoBehaviour
+public class ArrivalPatienceBar : MonoBehaviour
 {
     public Image fillImage;
     public GameObject uiRoot;
 
-    public float maxPatience = 20f;
+    public float maxPatience = 10f;
     private float currentPatience;
 
-    private bool running = false;
+    private bool running;
 
-    public event Action OnTimerExpired;
+    public event Action OnExpired;
+
     private Color baseColor;
 
     void Awake()
@@ -20,9 +21,8 @@ public class RequestTimer : MonoBehaviour
         ColorUtility.TryParseHtmlString("#E96C00", out baseColor);
         uiRoot.SetActive(false);
     }
-   
 
-    public void StartTimer(float duration)
+    public void StartBar(float duration)
     {
         maxPatience = duration;
         currentPatience = duration;
@@ -30,18 +30,15 @@ public class RequestTimer : MonoBehaviour
         fillImage.fillAmount = 1f;
         fillImage.color = baseColor;
 
-        uiRoot.SetActive(true); 
-
+        uiRoot.SetActive(true);
         running = true;
     }
 
-    public void StopTimer()
+    public void StopBar()
     {
         running = false;
-
         uiRoot.SetActive(false);
-
-        OnTimerExpired = null;
+        OnExpired = null;
     }
 
     void Update()
@@ -50,26 +47,19 @@ public class RequestTimer : MonoBehaviour
 
         currentPatience -= Time.deltaTime;
 
-        float newFill = currentPatience / maxPatience;
-        fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, newFill, Time.deltaTime * 8f);
+        float fill = currentPatience / maxPatience;
+        fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, fill, Time.deltaTime * 8f);
 
         if (currentPatience <= 0f)
         {
-            currentPatience = 0f;
             running = false;
-
-            uiRoot.SetActive(false); 
-
-            OnTimerExpired?.Invoke();
+            uiRoot.SetActive(false);
+            OnExpired?.Invoke();
         }
 
         if (fillImage.fillAmount < 0.3f)
-        {
             fillImage.color = Color.red;
-        }
         else
-        {
-            fillImage.color = baseColor; 
-        }
+            fillImage.color = baseColor;
     }
 }
