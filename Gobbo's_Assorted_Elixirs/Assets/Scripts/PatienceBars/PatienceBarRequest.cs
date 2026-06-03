@@ -20,27 +20,22 @@ public class PatienceBarRequest : MonoBehaviour
         ColorUtility.TryParseHtmlString("#E96C00", out baseColor);
         uiRoot.SetActive(false);
     }
-   
 
-    public void StartTimer(float duration)
+    public void StartTimer()
     {
-        maxPatience = duration;
-        currentPatience = duration;
+        currentPatience = maxPatience;
 
         fillImage.fillAmount = 1f;
         fillImage.color = baseColor;
 
-        uiRoot.SetActive(true); 
-
+        uiRoot.SetActive(true);
         running = true;
     }
 
     public void StopTimer()
     {
         running = false;
-
         uiRoot.SetActive(false);
-
         OnTimerExpired = null;
     }
 
@@ -58,18 +53,12 @@ public class PatienceBarRequest : MonoBehaviour
             currentPatience = 0f;
             running = false;
 
-            uiRoot.SetActive(false); 
-
+            uiRoot.SetActive(false);
             OnTimerExpired?.Invoke();
         }
 
-        if (fillImage.fillAmount < 0.3f)
-        {
-            fillImage.color = Color.red;
-        }
-        else
-        {
-            fillImage.color = baseColor; 
-        }
+        fillImage.color = (fillImage.fillAmount < 0.3f)
+            ? Color.red
+            : baseColor;
     }
 }

@@ -27,11 +27,9 @@ public class AdventurerBehaviour : MonoBehaviour
 
     [Header("Request Patience")]
     public PatienceBarRequest requestBarUI;
-    public float requestTimeLimit = 90f;
 
     [Header("Arrival Patience")]
     public ArrivalPatienceBar arrivalBarUI;
-    public float arrivalTimeLimit = 10f;
 
     void Start()
     {
@@ -49,7 +47,6 @@ public class AdventurerBehaviour : MonoBehaviour
 
     IEnumerator MoveAndWait()
     {
-        // Move to counter
         while (Vector3.Distance(transform.position, targetPoint.position) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(
@@ -74,13 +71,10 @@ public class AdventurerBehaviour : MonoBehaviour
             yield return null;
         }
 
-        // Face counter initially
         transform.LookAt(targetPoint);
 
-        // Start arrival patience
         StartArrivalBar();
 
-        // Setup interaction
         if (orderTrigger != null)
         {
             orderTrigger.SetAdventurer(this);
@@ -95,7 +89,6 @@ public class AdventurerBehaviour : MonoBehaviour
             }
         }
 
-        // Idle look behaviour
         while (!isLeaving)
         {
             if (lookPoint != null)
@@ -122,7 +115,6 @@ public class AdventurerBehaviour : MonoBehaviour
 
     public void Interact()
     {
-        // Stop arrival patience when player talks
         arrivalBarUI.StopBar();
         arrivalBarUI.OnExpired -= HandleArrivalFail;
 
@@ -163,7 +155,6 @@ public class AdventurerBehaviour : MonoBehaviour
 
         cauldron.OnPotionComplete += OnPotionFinished;
 
-        // Start request patience after dialogue
         StartCoroutine(StartTimerAfterText());
     }
 
@@ -174,7 +165,6 @@ public class AdventurerBehaviour : MonoBehaviour
 
     void CompleteInteraction()
     {
-        // Wrong potion
         if (cauldron.brewedPotion != requestedPotion)
         {
             requestBarUI.StopTimer();
@@ -182,20 +172,15 @@ public class AdventurerBehaviour : MonoBehaviour
 
             UIManager.Instance.ShowMessage("Thank you, farewell");
 
-            Debug.Log("GameOver");
-
             float loseDelay = Random.Range(10f, 30f);
-
             GameOverManager.Instance.QueueLose(loseDelay);
 
             isLeaving = true;
 
             StartCoroutine(DelayedLeave(2f));
-
             return;
         }
 
-        // Correct potion
         requestBarUI.StopTimer();
         requestBarUI.OnTimerExpired -= HandleTimerFail;
 
@@ -208,19 +193,20 @@ public class AdventurerBehaviour : MonoBehaviour
         StartCoroutine(DelayedLeave(2f));
     }
 
-    IEnumerator DelayedLeave(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        StartCoroutine(Leave());
-    }
-
     IEnumerator StartTimerAfterText()
     {
         yield return new WaitForSeconds(0.5f);
 
         requestBarUI.OnTimerExpired += HandleTimerFail;
-        requestBarUI.StartTimer(requestTimeLimit);
+
+     
+        requestBarUI.StartTimer();
+    }
+
+    IEnumerator DelayedLeave(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartCoroutine(Leave());
     }
 
     IEnumerator Leave()
@@ -254,33 +240,24 @@ public class AdventurerBehaviour : MonoBehaviour
         }
 
         spawner.AdventurerFinished();
-
         Destroy(gameObject);
     }
 
-    public bool IsPotionReady()
-    {
-        return potionReady;
-    }
-
-    public bool HasGivenOrder()
-    {
-        return hasGivenOrder;
-    }
+    public bool IsPotionReady() => potionReady;
+    public bool HasGivenOrder() => hasGivenOrder;
 
     void HandleTimerFail()
     {
         if (isLeaving) return;
 
         Debug.Log("Request timer ended");
-
         SceneManager.LoadSceneAsync(3);
     }
 
     void StartArrivalBar()
     {
         arrivalBarUI.OnExpired += HandleArrivalFail;
-        arrivalBarUI.StartBar(arrivalTimeLimit);
+        arrivalBarUI.StartBar();
     }
 
     void HandleArrivalFail()
@@ -293,8 +270,7 @@ public class AdventurerBehaviour : MonoBehaviour
 
         ScoreManager.Instance.RemoveScore(10);
 
-        UIManager.Instance.ShowMessage
-        (
+        UIManager.Instance.ShowMessage(
             "I suppose i'll just take some gold and leave..."
         );
 

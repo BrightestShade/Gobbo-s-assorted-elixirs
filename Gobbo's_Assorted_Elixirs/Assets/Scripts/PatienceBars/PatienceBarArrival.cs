@@ -7,9 +7,10 @@ public class ArrivalPatienceBar : MonoBehaviour
     public Image fillImage;
     public GameObject uiRoot;
 
+    [Header("Set this in the Inspector")]
     public float maxPatience = 10f;
-    private float currentPatience;
 
+    private float currentPatience;
     private bool running;
 
     public event Action OnExpired;
@@ -19,13 +20,14 @@ public class ArrivalPatienceBar : MonoBehaviour
     void Awake()
     {
         ColorUtility.TryParseHtmlString("#E96C00", out baseColor);
-        uiRoot.SetActive(false);
+
+        if (uiRoot != null)
+            uiRoot.SetActive(false);
     }
 
-    public void StartBar(float duration)
+    public void StartBar()
     {
-        maxPatience = duration;
-        currentPatience = duration;
+        currentPatience = maxPatience;
 
         fillImage.fillAmount = 1f;
         fillImage.color = baseColor;
@@ -37,23 +39,33 @@ public class ArrivalPatienceBar : MonoBehaviour
     public void StopBar()
     {
         running = false;
-        uiRoot.SetActive(false);
+
+        if (uiRoot != null)
+            uiRoot.SetActive(false);
+
         OnExpired = null;
     }
 
     void Update()
     {
-        if (!running) return;
+        if (!running)
+            return;
 
         currentPatience -= Time.deltaTime;
 
         float fill = currentPatience / maxPatience;
-        fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, fill, Time.deltaTime * 8f);
+
+        fillImage.fillAmount = Mathf.Lerp(
+            fillImage.fillAmount,
+            fill,
+            Time.deltaTime * 8f
+        );
 
         if (currentPatience <= 0f)
         {
             running = false;
             uiRoot.SetActive(false);
+
             OnExpired?.Invoke();
         }
 

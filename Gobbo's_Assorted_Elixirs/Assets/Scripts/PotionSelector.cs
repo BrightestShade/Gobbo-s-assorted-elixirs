@@ -22,9 +22,8 @@ public class PotionSelector : MonoBehaviour
             cauldron.currentRecipe = recipe;
             cauldron.ResetPotion();
 
-            Debug.Log("Selected Recipe: " + recipe.potionName);
+            Debug.Log("Selected Recipe");
 
-            UIManager.Instance.ShowMessage(recipe.potionName + " selected.");
         }
     }
 }
