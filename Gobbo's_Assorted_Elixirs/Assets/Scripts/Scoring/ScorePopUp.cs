@@ -3,15 +3,19 @@ using TMPro;
 
 public class ScorePopUp : MonoBehaviour
 {
-    public float moveSpeed = 1f;
+    public float moveSpeed = 50f;
     public float lifeTime = 1f;
 
-    private TextMeshPro textMesh;
+    private TextMeshProUGUI textMesh;
+    private RectTransform rectTransform;
+
     private Color textColor;
 
     void Start()
     {
-        textMesh = GetComponent<TextMeshPro>();
+        textMesh = GetComponent<TextMeshProUGUI>();
+        rectTransform = GetComponent<RectTransform>();
+
         textColor = textMesh.color;
 
         Destroy(gameObject, lifeTime);
@@ -19,10 +23,11 @@ public class ScorePopUp : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.up * moveSpeed * Time.deltaTime;
+        // Move upward in UI space
+        rectTransform.anchoredPosition +=
+            Vector2.up * moveSpeed * Time.deltaTime;
 
-        float alpha = Mathf.Lerp(1f, 0f, Time.deltaTime / lifeTime);
-
+        // Fade out
         textColor.a -= Time.deltaTime / lifeTime;
 
         textMesh.color = textColor;
@@ -31,7 +36,7 @@ public class ScorePopUp : MonoBehaviour
     public void SetText(string text)
     {
         if (textMesh == null)
-            textMesh = GetComponent<TextMeshPro>();
+            textMesh = GetComponent<TextMeshProUGUI>();
 
         textMesh.text = text;
     }

@@ -13,7 +13,7 @@ public class ScoreManager : MonoBehaviour
 
     [Header("Floating Popup")]
     public GameObject floatingTextPrefab;
-    public Transform popupSpawnPoint;
+    public RectTransform popupSpawnPoint;
 
     private int currentScore = 0;
     private int highScore = 0;
@@ -72,11 +72,9 @@ public class ScoreManager : MonoBehaviour
         if (floatingTextPrefab == null || popupSpawnPoint == null)
             return;
 
-        GameObject popup = Instantiate(
-            floatingTextPrefab,
-            popupSpawnPoint.position,
-            Quaternion.identity
-        );
+        GameObject popup = Instantiate(floatingTextPrefab, popupSpawnPoint);
+
+        popup.transform.localPosition = Vector3.zero;
 
         ScorePopUp floatingText = popup.GetComponent<ScorePopUp>();
 
@@ -91,11 +89,9 @@ public class ScoreManager : MonoBehaviour
         if (floatingTextPrefab == null || popupSpawnPoint == null)
             return;
 
-        GameObject popup = Instantiate(
-            floatingTextPrefab,
-            popupSpawnPoint.position,
-            Quaternion.identity
-        );
+        GameObject popup = Instantiate(floatingTextPrefab, popupSpawnPoint);
+
+        popup.transform.localPosition = Vector3.zero;
 
         ScorePopUp floatingText = popup.GetComponent<ScorePopUp>();
 
