@@ -6,9 +6,18 @@ public class RecipeBookInteraction : MonoBehaviour
     public GameObject recipeBookUI;
     public GameObject interactPrompt;
 
-    public MonoBehaviour FirstPersonController;
+    public MonoBehaviour firstPersonController;
 
     private bool playerInside = false;
+
+    void Start()
+    {
+        if (interactPrompt != null)
+            interactPrompt.SetActive(false);
+
+        if (recipeBookUI != null)
+            recipeBookUI.SetActive(false);
+    }
 
     void Update()
     {
@@ -37,16 +46,16 @@ public class RecipeBookInteraction : MonoBehaviour
 
         bool openingBook = !isOpen;
 
+        Cursor.lockState = openingBook
+            ? CursorLockMode.None
+            : CursorLockMode.Locked;
 
-        Cursor.lockState = openingBook ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = openingBook;
 
-
-        if (FirstPersonController != null)
+        if (firstPersonController != null)
         {
-            FirstPersonController.enabled = !openingBook;
+            firstPersonController.enabled = !openingBook;
         }
-
 
         Time.timeScale = openingBook ? 0f : 1f;
     }
@@ -65,14 +74,20 @@ public class RecipeBookInteraction : MonoBehaviour
         {
             playerInside = false;
 
+            if (interactPrompt != null)
+                interactPrompt.SetActive(false);
+
             if (recipeBookUI.activeSelf)
             {
                 recipeBookUI.SetActive(false);
 
-                if (FirstPersonController != null)
+                if (firstPersonController != null)
                 {
-                    FirstPersonController.enabled = true;
+                    firstPersonController.enabled = true;
                 }
+
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
 
                 Time.timeScale = 1f;
             }
