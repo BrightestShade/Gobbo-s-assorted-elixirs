@@ -324,6 +324,22 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 1665319337938934729, guid: 010ef302d91f2fb4faa9136fc6ad25ea, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665319337938934729, guid: 010ef302d91f2fb4faa9136fc6ad25ea, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665319337938934729, guid: 010ef302d91f2fb4faa9136fc6ad25ea, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665319337938934729, guid: 010ef302d91f2fb4faa9136fc6ad25ea, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 2303270534529697894, guid: 010ef302d91f2fb4faa9136fc6ad25ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: -115.82694
